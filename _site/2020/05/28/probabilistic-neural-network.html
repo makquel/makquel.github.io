@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Probabilistic neural networks in a nutshell | Miguel Rueda</title>
+<meta name="generator" content="Jekyll v4.1.0" />
+<meta property="og:title" content="Probabilistic neural networks in a nutshell" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Probabilistic neural network applied to classification and pattern recognition." />
+<meta property="og:description" content="Probabilistic neural network applied to classification and pattern recognition." />
+<link rel="canonical" href="http://localhost:4000/2020/05/28/probabilistic-neural-network.html" />
+<meta property="og:url" content="http://localhost:4000/2020/05/28/probabilistic-neural-network.html" />
+<meta property="og:site_name" content="Miguel Rueda" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-28T18:47:58-03:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"Probabilistic neural networks in a nutshell","dateModified":"2020-05-28T18:47:58-03:00","datePublished":"2020-05-28T18:47:58-03:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/05/28/probabilistic-neural-network.html"},"url":"http://localhost:4000/2020/05/28/probabilistic-neural-network.html","description":"Probabilistic neural network applied to classification and pattern recognition.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Miguel Rueda" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Miguel Rueda</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Probabilistic neural networks in a nutshell</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-05-28T18:47:58-03:00" itemprop="datePublished">May 28, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!-- Editar a resposta do https://stackoverflow.com/questions/14873203/plotting-of-1-dimensional-gaussian-distribution-function -->
+
+<!-- https://jekyllrb.com/tutorials/using-jekyll-with-bundler/ -->
+<p>Probabilistic neural networks (PNN) are a type of feed-forward artificial neural network that are closely related to kernel density estimation (KDE) via Parzen-window that asymptotically approaches to Bayes optimal risk minimization. This technique is widely used to estimate class-conditional densities (also known as likelihood) in machine learning tasks such as supervised learning.</p>
+
+<figure>
+  <img src="http://localhost:4000/assets/img/pnn/pnn_architecture_git.png" />
+</figure>
+
+<p>The neural network that was introduced by <a href="https://www.sciencedirect.com/science/article/abs/pii/089360809090049Q" title="Probabilistic neural networks">Specht</a> is composed by four layers:</p>
+<ul>
+  <li>Input layer: Features of data points (or observations)</li>
+  <li>Pattern layer: Calculation of the class-conditional PDF</li>
+  <li>Summation layer: Summation of the inter class patterns</li>
+  <li>Output layer: Hypothesis testing with the maximum a posteriori probability (MAP)
+<!-- https://stackoverflow.com/questions/19331362/using-an-image-caption-in-markdown-jekyll -->
+<!-- https://wordpress.com/support/markdown-quick-reference/ -->
+<!-- http://cs.joensuu.fi/pages/oili/PR/?a=Some__Material&b=Linear__And__Nonlinear__Classifiers -->
+<!-- https://math.stackexchange.com/questions/509465/standard-normal-random-variable-and-definition-of-phi -->
+<!-- https://scipython.com/blog/visualizing-the-bivariate-gaussian-distribution/ -->
+Write down in the following orden.
+    <ol>
+      <li>pdf of the joint probability</li>
+      <li>Use gaussian function as weightin the \Phi function</li>
+      <li>The full transromation comes out of the sum of gaussians</li>
+    </ol>
+  </li>
+</ul>
+
+<p>In order to understand the back-bone mechanism of the PNN, one have to look back to Bayes theorem. Suppose that the goal is to is to built a Bayes classifier, where X and Θ are independent and identically distributed (i.i.d) random variables (r.v).</p>
+
+<figure>
+  <img src="http://localhost:4000/assets/img/pnn/bayes_eq.png" />
+</figure>
+
+<p>whereas finding the likelihood probability density function (PDF) could be a challenging problem; using Parzen-window method to calculate it, tackles down this problem in a elegant and reliable way. Therefore, if the parameters of the likelihood PDF are known, it will be easy to infere the posterior probability.</p>
+
+<p>The Parzen-window is, basically, a non-parametric method to estimate the PDF for a specific observation given a data set; conversely, this doesn’t require prior knowledge about the underlying distribution. This window has a weighting funtion Φ and smoothing funtion h(n).</p>
+
+<!-- https://www.youtube.com/watch?v=MPaTYY-QnFw&t=47s -->
+<!-- https://sebastianraschka.com/Articles/2014_kernel_density_est.html -->
+<figure>
+  <img src="http://localhost:4000/assets/img/pnn/parzen-window.png" />
+</figure>
+
+<p>Using the normal distribution as weighting funtion lead us to the following equation, normalized by the total number of class conditional observations.</p>
+<figure>
+  <img src="http://localhost:4000/assets/img/pnn/likelihood_eq.png" />
+</figure>
+<p>In a multivariate problem Σ is a diagonal matrix that contains the covariance of each feature.</p>
+<figure>
+  <img src="http://localhost:4000/assets/img/pnn/cov_eq.png" />
+</figure>
+
+<p>For a better understanding, take for instance a simple univariate case study. Suppose that X is an i.i.d random variable that is composed by a set of binomial class data. Assume tha σ=1, and the test point x=3.</p>
+<figure>
+  <img src="http://localhost:4000/assets/img/pnn/X_normal_dist.png" />
+</figure>
+<figure>
+  <img src="http://localhost:4000/assets/img/pnn/X_rv.png" />
+</figure>
+
+<p>Let Θ be a Bernoulli random variable that indicates the binomial class hypotheses, and let P(Θ) equaly likely. Under the hypothesis Θ=1, the random variable X has a PDF defined by:</p>
+
+<figure>
+  <img src="http://localhost:4000/assets/img/pnn/window_class_1.png" />
+</figure>
+
+<p>Under the alternative hypothesis Θ=2, X has a normal distribution with mean 2 and variance 1.</p>
+<figure>
+  <img src="http://localhost:4000/assets/img/pnn/window_class_2.png" />
+</figure>
+<p>Therefore, a solution of x, that satisfies the boundary condition, can be found numerically. This is an optimal solution, minimizes the misclassification rate. A proxy visual representation of the the hypothesis test of class conditional funtions is shown bellow.</p>
+
+<figure>
+  <img src="http://localhost:4000/assets/img/pnn/3d_example_pdfs.png" />
+</figure>
+
+<figure>
+  <img src="http://localhost:4000/assets/img/pnn/2d_example_pdfs.png" />
+</figure>
+
+<p>The decision boundary of the PNN is given by:</p>
+
+<figure>
+  <img src="http://localhost:4000/assets/img/pnn/boundary_decision.png" />
+</figure>
+
+<p>The figure bellow shows the decision boundary and the error conditional probability (shaded area).</p>
+
+<figure>
+  <img src="http://localhost:4000/assets/img/pnn/decision_boundary.png" />
+</figure>
+
+<p>Finally, having observed x, is choosen an estimate that maximezes the posterior PDF ovel all Θ, via MAP.</p>
+
+<figure>
+  <img src="http://localhost:4000/assets/img/pnn/argmax.png" />
+</figure>
+
+<p>Givem the MAP estimator the outcome will be y2(x)=0.0011 &lt; 0.2103 = y1(x), thus, the point will be classified as Θ=2.</p>
+
+<p>In order to compare with other machine learning algorithms, was created a python class that matches the structure of SciKit Learn algorithms. Using the default benchmark composed by 3 synthetic datasets was made a comparisson with <a href="https://scikit-learn.org/stable/modules/gaussian_process.html">Gaussian process</a> and <a href="https://scikit-learn.org/stable/modules/neighbors.html">Nearest Neighbors</a> algorithms.The image bellow shows the results achieved measured by the accuracy metric.</p>
+
+<!-- 
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span></code></pre></figure>
+ -->
+
+<figure>
+  <img src="http://localhost:4000/assets/img/pnn/pnn_comparisson.png" />
+</figure>
+
+<p>Check out the <a href="https://github.com/makquel/probabilistic-neural-network">PNN</a> repo for more info.</p>
+
+<!-- You’ll find this post in your `_posts` directory.
+
+Jekyll requires blog post files to be named according to the following format:
+
+`YEAR-MONTH-DAY-title.MARKUP`
+
+Where `YEAR` is a four-digit number, `MONTH` and `DAY` are both two-digit numbers, and `MARKUP` is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.
+
+Jekyll also offers powerful support for code snippets:
+
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
+<span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span></code></pre></figure>
+
+
+Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+
+[jekyll-docs]: https://github.com/makquel/probabilistic-neural-network
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-talk]: https://talk.jekyllrb.com/ -->
+
+  </div><a class="u-url" href="/2020/05/28/probabilistic-neural-network.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Miguel Rueda</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Miguel Rueda</li><li><a class="u-email" href="mailto:makquel@gmail.com">makquel@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/makquel"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">makquel</span></a></li><li><a href="https://www.twitter.com/makquel"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">makquel</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Some computer vision, machine learning and deep learning algorithms  to play around.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

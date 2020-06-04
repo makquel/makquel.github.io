@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-06-04T20:44:09-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Miguel Rueda</title><subtitle>Some computer vision, machine learning and deep learning algorithms  to play around.</subtitle><entry><title type="html">Probabilistic neural networks in a nutshell</title><link href="http://localhost:4000/2020/05/28/probabilistic-neural-network.html" rel="alternate" type="text/html" title="Probabilistic neural networks in a nutshell" /><published>2020-05-28T18:47:58-03:00</published><updated>2020-05-28T18:47:58-03:00</updated><id>http://localhost:4000/2020/05/28/probabilistic-neural-network</id><content type="html" xml:base="http://localhost:4000/2020/05/28/probabilistic-neural-network.html">&lt;!-- Editar a resposta do https://stackoverflow.com/questions/14873203/plotting-of-1-dimensional-gaussian-distribution-function --&gt;
+
+&lt;!-- https://jekyllrb.com/tutorials/using-jekyll-with-bundler/ --&gt;
+&lt;p&gt;Probabilistic neural networks (PNN) are a type of feed-forward artificial neural network that are closely related to kernel density estimation (KDE) via Parzen-window that asymptotically approaches to Bayes optimal risk minimization. This technique is widely used to estimate class-conditional densities (also known as likelihood) in machine learning tasks such as supervised learning.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;http://localhost:4000/assets/img/pnn/pnn_architecture_git.png&quot; /&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;The neural network that was introduced by &lt;a href=&quot;https://www.sciencedirect.com/science/article/abs/pii/089360809090049Q&quot; title=&quot;Probabilistic neural networks&quot;&gt;Specht&lt;/a&gt; is composed by four layers:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Input layer: Features of data points (or observations)&lt;/li&gt;
+  &lt;li&gt;Pattern layer: Calculation of the class-conditional PDF&lt;/li&gt;
+  &lt;li&gt;Summation layer: Summation of the inter class patterns&lt;/li&gt;
+  &lt;li&gt;Output layer: Hypothesis testing with the maximum a posteriori probability (MAP)
+&lt;!-- https://stackoverflow.com/questions/19331362/using-an-image-caption-in-markdown-jekyll --&gt;
+&lt;!-- https://wordpress.com/support/markdown-quick-reference/ --&gt;
+&lt;!-- http://cs.joensuu.fi/pages/oili/PR/?a=Some__Material&amp;b=Linear__And__Nonlinear__Classifiers --&gt;
+&lt;!-- https://math.stackexchange.com/questions/509465/standard-normal-random-variable-and-definition-of-phi --&gt;
+&lt;!-- https://scipython.com/blog/visualizing-the-bivariate-gaussian-distribution/ --&gt;
+Write down in the following orden.
+    &lt;ol&gt;
+      &lt;li&gt;pdf of the joint probability&lt;/li&gt;
+      &lt;li&gt;Use gaussian function as weightin the \Phi function&lt;/li&gt;
+      &lt;li&gt;The full transromation comes out of the sum of gaussians&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In order to understand the back-bone mechanism of the PNN, one have to look back to Bayes theorem. Suppose that the goal is to is to built a Bayes classifier, where X and Θ are independent and identically distributed (i.i.d) random variables (r.v).&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;http://localhost:4000/assets/img/pnn/bayes_eq.png&quot; /&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;whereas finding the likelihood probability density function (PDF) could be a challenging problem; using Parzen-window method to calculate it, tackles down this problem in a elegant and reliable way. Therefore, if the parameters of the likelihood PDF are known, it will be easy to infere the posterior probability.&lt;/p&gt;
+
+&lt;p&gt;The Parzen-window is, basically, a non-parametric method to estimate the PDF for a specific observation given a data set; conversely, this doesn’t require prior knowledge about the underlying distribution. This window has a weighting funtion Φ and smoothing funtion h(n).&lt;/p&gt;
+
+&lt;!-- https://www.youtube.com/watch?v=MPaTYY-QnFw&amp;t=47s --&gt;
+&lt;!-- https://sebastianraschka.com/Articles/2014_kernel_density_est.html --&gt;
+&lt;figure&gt;
+  &lt;img src=&quot;http://localhost:4000/assets/img/pnn/parzen-window.png&quot; /&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Using the normal distribution as weighting funtion lead us to the following equation, normalized by the total number of class conditional observations.&lt;/p&gt;
+&lt;figure&gt;
+  &lt;img src=&quot;http://localhost:4000/assets/img/pnn/likelihood_eq.png&quot; /&gt;
+&lt;/figure&gt;
+&lt;p&gt;In a multivariate problem Σ is a diagonal matrix that contains the covariance of each feature.&lt;/p&gt;
+&lt;figure&gt;
+  &lt;img src=&quot;http://localhost:4000/assets/img/pnn/cov_eq.png&quot; /&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;For a better understanding, take for instance a simple univariate case study. Suppose that X is an i.i.d random variable that is composed by a set of binomial class data. Assume tha σ=1, and the test point x=3.&lt;/p&gt;
+&lt;figure&gt;
+  &lt;img src=&quot;http://localhost:4000/assets/img/pnn/X_normal_dist.png&quot; /&gt;
+&lt;/figure&gt;
+&lt;figure&gt;
+  &lt;img src=&quot;http://localhost:4000/assets/img/pnn/X_rv.png&quot; /&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Let Θ be a Bernoulli random variable that indicates the binomial class hypotheses, and let P(Θ) equaly likely. Under the hypothesis Θ=1, the random variable X has a PDF defined by:&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;http://localhost:4000/assets/img/pnn/window_class_1.png&quot; /&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Under the alternative hypothesis Θ=2, X has a normal distribution with mean 2 and variance 1.&lt;/p&gt;
+&lt;figure&gt;
+  &lt;img src=&quot;http://localhost:4000/assets/img/pnn/window_class_2.png&quot; /&gt;
+&lt;/figure&gt;
+&lt;p&gt;Therefore, a solution of x, that satisfies the boundary condition, can be found numerically. This is an optimal solution, minimizes the misclassification rate. A proxy visual representation of the the hypothesis test of class conditional funtions is shown bellow.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;http://localhost:4000/assets/img/pnn/3d_example_pdfs.png&quot; /&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;http://localhost:4000/assets/img/pnn/2d_example_pdfs.png&quot; /&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;The decision boundary of the PNN is given by:&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;http://localhost:4000/assets/img/pnn/boundary_decision.png&quot; /&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;The figure bellow shows the decision boundary and the error conditional probability (shaded area).&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;http://localhost:4000/assets/img/pnn/decision_boundary.png&quot; /&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Finally, having observed x, is choosen an estimate that maximezes the posterior PDF ovel all Θ, via MAP.&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;http://localhost:4000/assets/img/pnn/argmax.png&quot; /&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Givem the MAP estimator the outcome will be y2(x)=0.0011 &amp;lt; 0.2103 = y1(x), thus, the point will be classified as Θ=2.&lt;/p&gt;
+
+&lt;p&gt;In order to compare with other machine learning algorithms, was created a python class that matches the structure of SciKit Learn algorithms. Using the default benchmark composed by 3 synthetic datasets was made a comparisson with &lt;a href=&quot;https://scikit-learn.org/stable/modules/gaussian_process.html&quot;&gt;Gaussian process&lt;/a&gt; and &lt;a href=&quot;https://scikit-learn.org/stable/modules/neighbors.html&quot;&gt;Nearest Neighbors&lt;/a&gt; algorithms.The image bellow shows the results achieved measured by the accuracy metric.&lt;/p&gt;
+
+&lt;!-- 
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+ --&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;http://localhost:4000/assets/img/pnn/pnn_comparisson.png&quot; /&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;https://github.com/makquel/probabilistic-neural-network&quot;&gt;PNN&lt;/a&gt; repo for more info.&lt;/p&gt;
+
+&lt;!-- You’ll find this post in your `_posts` directory.
+
+Jekyll requires blog post files to be named according to the following format:
+
+`YEAR-MONTH-DAY-title.MARKUP`
+
+Where `YEAR` is a four-digit number, `MONTH` and `DAY` are both two-digit numbers, and `MARKUP` is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.
+
+Jekyll also offers powerful support for code snippets:
+
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+
+[jekyll-docs]: https://github.com/makquel/probabilistic-neural-network
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-talk]: https://talk.jekyllrb.com/ --&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Introduction to extreme learning machines (WIP)</title><link href="http://localhost:4000/2020/04/25/extreme-learning-machine.html" rel="alternate" type="text/html" title="Introduction to extreme learning machines (WIP)" /><published>2020-04-25T17:47:58-03:00</published><updated>2020-04-25T17:47:58-03:00</updated><id>http://localhost:4000/2020/04/25/extreme-learning-machine</id><content type="html" xml:base="http://localhost:4000/2020/04/25/extreme-learning-machine.html">&lt;!-- https://jekyllrb.com/tutorials/using-jekyll-with-bundler/ --&gt;
+&lt;p&gt;Extreme learning machine (ELM) are a type of feed-forward artificial neural network …&lt;/p&gt;
+
+&lt;figure&gt;
+  &lt;img src=&quot;http://localhost:4000/assets/img/elm/elm_architecture_git.png&quot; /&gt;
+&lt;/figure&gt;
+
+&lt;!-- So first, in order to check the algorithm that we just have implemented, a simple but usefull hard test is the XOR function, which is defined as a not linearly separable function.
+
+since it could overcome the limitations of linear separability --&gt;</content><author><name></name></author><summary type="html">Extreme learning machine (ELM) are a type of feed-forward artificial neural network …</summary></entry></feed>
