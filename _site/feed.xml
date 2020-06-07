@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-06-04T20:44:09-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Miguel Rueda</title><subtitle>Some computer vision, machine learning and deep learning algorithms  to play around.</subtitle><entry><title type="html">Probabilistic neural networks in a nutshell</title><link href="http://localhost:4000/2020/05/28/probabilistic-neural-network.html" rel="alternate" type="text/html" title="Probabilistic neural networks in a nutshell" /><published>2020-05-28T18:47:58-03:00</published><updated>2020-05-28T18:47:58-03:00</updated><id>http://localhost:4000/2020/05/28/probabilistic-neural-network</id><content type="html" xml:base="http://localhost:4000/2020/05/28/probabilistic-neural-network.html">&lt;!-- Editar a resposta do https://stackoverflow.com/questions/14873203/plotting-of-1-dimensional-gaussian-distribution-function --&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-06-07T17:38:41-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Miguel Rueda</title><subtitle>Some computer vision, machine learning and deep learning algorithms  to play around.</subtitle><entry><title type="html">Probabilistic neural networks in a nutshell</title><link href="http://localhost:4000/2020/05/28/probabilistic-neural-network.html" rel="alternate" type="text/html" title="Probabilistic neural networks in a nutshell" /><published>2020-05-28T18:47:58-03:00</published><updated>2020-05-28T18:47:58-03:00</updated><id>http://localhost:4000/2020/05/28/probabilistic-neural-network</id><content type="html" xml:base="http://localhost:4000/2020/05/28/probabilistic-neural-network.html">&lt;!-- Editar a resposta do https://stackoverflow.com/questions/14873203/plotting-of-1-dimensional-gaussian-distribution-function --&gt;
 
 &lt;!-- https://jekyllrb.com/tutorials/using-jekyll-with-bundler/ --&gt;
 &lt;p&gt;Probabilistic neural networks (PNN) are a type of feed-forward artificial neural network that are closely related to kernel density estimation (KDE) via Parzen-window that asymptotically approaches to Bayes optimal risk minimization. This technique is widely used to estimate class-conditional densities (also known as likelihood) in machine learning tasks such as supervised learning.&lt;/p&gt;
@@ -11,31 +11,24 @@
 &lt;ul&gt;
   &lt;li&gt;Input layer: Features of data points (or observations)&lt;/li&gt;
   &lt;li&gt;Pattern layer: Calculation of the class-conditional PDF&lt;/li&gt;
-  &lt;li&gt;Summation layer: Summation of the inter class patterns&lt;/li&gt;
+  &lt;li&gt;Summation layer: Summation of the inter-class patterns&lt;/li&gt;
   &lt;li&gt;Output layer: Hypothesis testing with the maximum a posteriori probability (MAP)
 &lt;!-- https://stackoverflow.com/questions/19331362/using-an-image-caption-in-markdown-jekyll --&gt;
 &lt;!-- https://wordpress.com/support/markdown-quick-reference/ --&gt;
 &lt;!-- http://cs.joensuu.fi/pages/oili/PR/?a=Some__Material&amp;b=Linear__And__Nonlinear__Classifiers --&gt;
 &lt;!-- https://math.stackexchange.com/questions/509465/standard-normal-random-variable-and-definition-of-phi --&gt;
-&lt;!-- https://scipython.com/blog/visualizing-the-bivariate-gaussian-distribution/ --&gt;
-Write down in the following orden.
-    &lt;ol&gt;
-      &lt;li&gt;pdf of the joint probability&lt;/li&gt;
-      &lt;li&gt;Use gaussian function as weightin the \Phi function&lt;/li&gt;
-      &lt;li&gt;The full transromation comes out of the sum of gaussians&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
+&lt;!-- https://scipython.com/blog/visualizing-the-bivariate-gaussian-distribution/ --&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;In order to understand the back-bone mechanism of the PNN, one have to look back to Bayes theorem. Suppose that the goal is to is to built a Bayes classifier, where X and Θ are independent and identically distributed (i.i.d) random variables (r.v).&lt;/p&gt;
 
-&lt;figure&gt;
+&lt;figure align=&quot;center&quot;&gt;
   &lt;img src=&quot;http://localhost:4000/assets/img/pnn/bayes_eq.png&quot; /&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;whereas finding the likelihood probability density function (PDF) could be a challenging problem; using Parzen-window method to calculate it, tackles down this problem in a elegant and reliable way. Therefore, if the parameters of the likelihood PDF are known, it will be easy to infere the posterior probability.&lt;/p&gt;
 
-&lt;p&gt;The Parzen-window is, basically, a non-parametric method to estimate the PDF for a specific observation given a data set; conversely, this doesn’t require prior knowledge about the underlying distribution. This window has a weighting funtion Φ and smoothing funtion h(n).&lt;/p&gt;
+&lt;p&gt;The Parzen-window is, basically, a non-parametric method to estimate the PDF for a specific observation given a data set; conversely, this doesn’t require prior knowledge about the underlying distribution. This window has a weighting funtion Φ and smoothing funtion h(n). (For further knowledge about KDE visit sebastian raschka &lt;a href=&quot;https://sebastianraschka.com/Articles/2014_kernel_density_est.html&quot; title=&quot;Kernel density estimation via the Parzen-Rosenblatt window method&quot;&gt;webpage&lt;/a&gt;)&lt;/p&gt;
 
 &lt;!-- https://www.youtube.com/watch?v=MPaTYY-QnFw&amp;t=47s --&gt;
 &lt;!-- https://sebastianraschka.com/Articles/2014_kernel_density_est.html --&gt;
@@ -52,7 +45,7 @@ Write down in the following orden.
   &lt;img src=&quot;http://localhost:4000/assets/img/pnn/cov_eq.png&quot; /&gt;
 &lt;/figure&gt;
 
-&lt;p&gt;For a better understanding, take for instance a simple univariate case study. Suppose that X is an i.i.d random variable that is composed by a set of binomial class data. Assume tha σ=1, and the test point x=3.&lt;/p&gt;
+&lt;p&gt;For a better understanding, take for instance a simple univariate case study. Suppose that X is an i.i.d random variable that is composed by a set of binomial class data. Assume that σ=1, and a unclassified observation x=3.&lt;/p&gt;
 &lt;figure&gt;
   &lt;img src=&quot;http://localhost:4000/assets/img/pnn/X_normal_dist.png&quot; /&gt;
 &lt;/figure&gt;
@@ -70,7 +63,7 @@ Write down in the following orden.
 &lt;figure&gt;
   &lt;img src=&quot;http://localhost:4000/assets/img/pnn/window_class_2.png&quot; /&gt;
 &lt;/figure&gt;
-&lt;p&gt;Therefore, a solution of x, that satisfies the boundary condition, can be found numerically. This is an optimal solution, minimizes the misclassification rate. A proxy visual representation of the the hypothesis test of class conditional funtions is shown bellow.&lt;/p&gt;
+&lt;p&gt;Therefore, a solution of x, that satisfies the boundary condition, can be found numerically. This is an optimal solution, that minimizes the misclassification rate. A proxy visual representation of the the hypothesis test of class conditional funtions is shown bellow.&lt;/p&gt;
 
 &lt;figure&gt;
   &lt;img src=&quot;http://localhost:4000/assets/img/pnn/3d_example_pdfs.png&quot; /&gt;
@@ -86,21 +79,21 @@ Write down in the following orden.
   &lt;img src=&quot;http://localhost:4000/assets/img/pnn/boundary_decision.png&quot; /&gt;
 &lt;/figure&gt;
 
-&lt;p&gt;The figure bellow shows the decision boundary and the error conditional probability (shaded area).&lt;/p&gt;
+&lt;p&gt;The figure bellow shows the decision boundary and the error conditional probability (shaded region).&lt;/p&gt;
 
 &lt;figure&gt;
   &lt;img src=&quot;http://localhost:4000/assets/img/pnn/decision_boundary.png&quot; /&gt;
 &lt;/figure&gt;
 
-&lt;p&gt;Finally, having observed x, is choosen an estimate that maximezes the posterior PDF ovel all Θ, via MAP.&lt;/p&gt;
+&lt;p&gt;Finally, having observed x, is choosen an estimate that maximizes the posterior PDF ovel all Θ, via MAP.&lt;/p&gt;
 
 &lt;figure&gt;
   &lt;img src=&quot;http://localhost:4000/assets/img/pnn/argmax.png&quot; /&gt;
 &lt;/figure&gt;
 
-&lt;p&gt;Givem the MAP estimator the outcome will be y2(x)=0.0011 &amp;lt; 0.2103 = y1(x), thus, the point will be classified as Θ=2.&lt;/p&gt;
+&lt;p&gt;Given the MAP estimator, the outcome will be y2(x)=0.0011 &amp;lt; 0.2103 = y1(x), thus, the observation will be classified as Θ=1.&lt;/p&gt;
 
-&lt;p&gt;In order to compare with other machine learning algorithms, was created a python class that matches the structure of SciKit Learn algorithms. Using the default benchmark composed by 3 synthetic datasets was made a comparisson with &lt;a href=&quot;https://scikit-learn.org/stable/modules/gaussian_process.html&quot;&gt;Gaussian process&lt;/a&gt; and &lt;a href=&quot;https://scikit-learn.org/stable/modules/neighbors.html&quot;&gt;Nearest Neighbors&lt;/a&gt; algorithms.The image bellow shows the results achieved measured by the accuracy metric.&lt;/p&gt;
+&lt;p&gt;In order to compare with other machine learning algorithms, was created a python class that matches the structure of SciKit Learn algorithms. Using the default benchmark composed by 3 synthetic datasets was made a comparisson with a &lt;a href=&quot;https://scikit-learn.org/stable/modules/gaussian_process.html&quot;&gt;Gaussian process&lt;/a&gt; and a &lt;a href=&quot;https://scikit-learn.org/stable/modules/neighbors.html&quot;&gt;Nearest Neighbors&lt;/a&gt; classifiers.The image bellow shows the results achieved measured by the accuracy metric.&lt;/p&gt;
 
 &lt;!-- 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
