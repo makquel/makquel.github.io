@@ -3,9 +3,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Introduction to extreme learning machines (WIP) | Miguel Rueda</title>
+<title>Introduction to extreme learning machine (ELM) | Miguel Rueda</title>
 <meta name="generator" content="Jekyll v4.1.0" />
-<meta property="og:title" content="Introduction to extreme learning machines (WIP)" />
+<meta property="og:title" content="Introduction to extreme learning machine (ELM)" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="An introduction to Extreme learning machine (ELM)." />
 <meta property="og:description" content="An introduction to Extreme learning machine (ELM)." />
@@ -15,7 +15,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-04-25T17:47:58-03:00" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","headline":"Introduction to extreme learning machines (WIP)","dateModified":"2020-04-25T17:47:58-03:00","datePublished":"2020-04-25T17:47:58-03:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/04/25/extreme-learning-machine.html"},"url":"http://localhost:4000/2020/04/25/extreme-learning-machine.html","description":"An introduction to Extreme learning machine (ELM).","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","headline":"Introduction to extreme learning machine (ELM)","dateModified":"2020-04-25T17:47:58-03:00","datePublished":"2020-04-25T17:47:58-03:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/04/25/extreme-learning-machine.html"},"url":"http://localhost:4000/2020/04/25/extreme-learning-machine.html","description":"An introduction to Extreme learning machine (ELM).","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Miguel Rueda" /></head>
 <body><header class="site-header" role="banner">
@@ -38,7 +38,7 @@
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Introduction to extreme learning machines (WIP)</h1>
+    <h1 class="post-title p-name" itemprop="name headline">Introduction to extreme learning machine (ELM)</h1>
     <p class="post-meta">
       <time class="dt-published" datetime="2020-04-25T17:47:58-03:00" itemprop="datePublished">Apr 25, 2020
       </time></p>
@@ -46,15 +46,32 @@
 
   <div class="post-content e-content" itemprop="articleBody">
     <!-- https://jekyllrb.com/tutorials/using-jekyll-with-bundler/ -->
-<p>Extreme learning machine (ELM) are a type of feed-forward artificial neural network …</p>
+<p>Extreme learning machine (ELM) is a supervised learning framework for simplifying the training process of Artificial neural networks (ANN). This framework was proposed by <a href="https://www.ntu.edu.sg/home/egbhuang/" title="Extreme learning machine">Huang</a>, as the name suggest, to provide better generalization performance at extreme fast learning speed. This work  showed … Single Hidden Layer Feedforward Neural Networks (SLFN). SLFNs are neural networks composed by only one hidden layer, where the output layer weights are updated during training. It has been exhaustively proved that multi-layer perceptron (MLP) with only a hidden layer can, sufficiently, approximate any continuous function giving origin to SLFNs, however, this does not guarantee optimal learning rate, generalization capabilities, and ease of implementation.</p>
 
 <figure>
   <img src="http://localhost:4000/assets/img/elm/elm_architecture_git.png" />
 </figure>
 
-<!-- So first, in order to check the algorithm that we just have implemented, a simple but usefull hard test is the XOR function, which is defined as a not linearly separable function.
+<p>Compared to SLFN-ELM, traditional supervised learning methods have shown that learning speed of feedforward networks are slower than required. Most of this traditional methods are either gradient based (e.g. backpropagation algortihm) or evolutionary algorithms. The former, could be approached as unrestricted nonlinear optimization problem; where the bottleneck lies on the existence of several local minima, with the underlying assumption of multi-modal nature of the loss function; the latter are rather global optimization problems inspired by biological evolution.</p>
 
-since it could overcome the limitations of linear separability -->
+<p>The SLFN-ELM could be interpreted as linear system:</p>
+<figure>
+  <img src="http://localhost:4000/assets/img/elm/linear_elm.png" />
+</figure>
+
+<figure>
+  <img src="http://localhost:4000/assets/img/elm/huang_notation.png" />
+</figure>
+
+<p>So first, in order to check the algorithm that we just have implemented, a simple but usefull hard test is the XOR function, which is defined as a not linearly separable function.since it could overcome the limitations of linear separability…</p>
+
+<figure>
+  <img src="http://localhost:4000/assets/img/elm/XOR_eq.png" />
+</figure>
+
+<figure>
+  <img src="http://localhost:4000/assets/img/elm/xor_elm_architecture_git.png" />
+</figure>
 
   </div><a class="u-url" href="/2020/04/25/extreme-learning-machine.html" hidden></a>
 </article>
