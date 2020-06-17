@@ -3,19 +3,19 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Introduction to extreme learning machine (ELM) | Miguel Rueda</title>
+<title>Introduction to extreme learning machine | Miguel Rueda</title>
 <meta name="generator" content="Jekyll v4.1.0" />
-<meta property="og:title" content="Introduction to extreme learning machine (ELM)" />
+<meta property="og:title" content="Introduction to extreme learning machine" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="An introduction to Extreme learning machine (ELM)." />
-<meta property="og:description" content="An introduction to Extreme learning machine (ELM)." />
+<meta name="description" content="An introduction to Extreme learning machine." />
+<meta property="og:description" content="An introduction to Extreme learning machine." />
 <link rel="canonical" href="http://localhost:4000/2020/04/25/extreme-learning-machine.html" />
 <meta property="og:url" content="http://localhost:4000/2020/04/25/extreme-learning-machine.html" />
 <meta property="og:site_name" content="Miguel Rueda" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-04-25T17:47:58-03:00" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","headline":"Introduction to extreme learning machine (ELM)","dateModified":"2020-04-25T17:47:58-03:00","datePublished":"2020-04-25T17:47:58-03:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/04/25/extreme-learning-machine.html"},"url":"http://localhost:4000/2020/04/25/extreme-learning-machine.html","description":"An introduction to Extreme learning machine (ELM).","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","headline":"Introduction to extreme learning machine","dateModified":"2020-04-25T17:47:58-03:00","datePublished":"2020-04-25T17:47:58-03:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/04/25/extreme-learning-machine.html"},"url":"http://localhost:4000/2020/04/25/extreme-learning-machine.html","description":"An introduction to Extreme learning machine.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Miguel Rueda" /></head>
 <body><header class="site-header" role="banner">
@@ -38,7 +38,7 @@
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Introduction to extreme learning machine (ELM)</h1>
+    <h1 class="post-title p-name" itemprop="name headline">Introduction to extreme learning machine</h1>
     <p class="post-meta">
       <time class="dt-published" datetime="2020-04-25T17:47:58-03:00" itemprop="datePublished">Apr 25, 2020
       </time></p>
@@ -46,15 +46,19 @@
 
   <div class="post-content e-content" itemprop="articleBody">
     <!-- https://jekyllrb.com/tutorials/using-jekyll-with-bundler/ -->
-<p>Extreme learning machine (ELM) is a supervised learning framework for simplifying the training process of Artificial neural networks (ANN). This framework was proposed by <a href="https://www.ntu.edu.sg/home/egbhuang/" title="Extreme learning machine">Huang</a>, as the name suggest, to provide better generalization performance at extreme fast learning speed. This work  showed … Single Hidden Layer Feedforward Neural Networks (SLFN). SLFNs are neural networks composed by only one hidden layer, where the output layer weights are updated during training. It has been exhaustively proved that multi-layer perceptron (MLP) with only a hidden layer can, sufficiently, approximate any continuous function giving origin to SLFNs, however, this does not guarantee optimal learning rate, generalization capabilities, and ease of implementation.</p>
+<p>Extreme learning machine (ELM) is a supervised learning framework that simplifies the training process of Single Hidden Layer Feedforward Neural Networks (SLFN). This framework was proposed by <a href="https://www.ntu.edu.sg/home/egbhuang/" title="Extreme learning machine">Huang</a> to provide better generalization performance at extremely fast learning speed. It has been exhaustively proved that multilayer perceptron (MLP) networks with only one hidden layer can, sufficiently, approximate any continuous function giving origin to SLFNs, however, this does not guarantee optimal learning time, and generalization capabilities, and ease of implementation. SLFNs are  composed of  three separate layers as shown in figure below.</p>
 
 <figure>
   <img src="http://localhost:4000/assets/img/elm/elm_architecture_git.png" />
 </figure>
 
+<p>The input layer is the a set of  m independent and identically distributed (i.i.d) pattern data represented by source nodes. The hidden layer is a set of n nodes where a nonlinear transform is applied to the weighted sum of the input layer data. At the output layer another weighted sum is applied, and usually this weights are updated during training as well.</p>
+
 <p>Compared to SLFN-ELM, traditional supervised learning methods have shown that learning speed of feedforward networks are slower than required. Most of this traditional methods are either gradient based (e.g. backpropagation algortihm) or evolutionary algorithms. The former, could be approached as unrestricted nonlinear optimization problem; where the bottleneck lies on the existence of several local minima, with the underlying assumption of multi-modal nature of the loss function; the latter are rather global optimization problems inspired by biological evolution.</p>
 
-<p>The SLFN-ELM could be interpreted as linear system:</p>
+<p>ELM’s learning algorithm randomly chooses and fixes the weights between input and hidden layer, and then analytically determines the weights of the output layer via Least mean squares (LMS) estimators. The fact that the ELM has few parameters to be tuned lead to excel generalization capabilities. The supervised training is occurs as follows:</p>
+
+<p>The SLFN-ELM could be interpreted as linear system</p>
 <figure>
   <img src="http://localhost:4000/assets/img/elm/linear_elm.png" />
 </figure>
@@ -63,15 +67,87 @@
   <img src="http://localhost:4000/assets/img/elm/huang_notation.png" />
 </figure>
 
-<p>So first, in order to check the algorithm that we just have implemented, a simple but usefull hard test is the XOR function, which is defined as a not linearly separable function.since it could overcome the limitations of linear separability…</p>
+<figure>
+  <img src="http://localhost:4000/assets/img/elm/H_matrix_elm.png" />
+</figure>
+
+<figure>
+  <img src="http://localhost:4000/assets/img/elm/activation_function.png" />
+</figure>
+
+<figure>
+  <img src="http://localhost:4000/assets/img/elm/beta_solution.png" />
+</figure>
+<p>Min L2-norm output layer weight:</p>
+<figure>
+  <img src="http://localhost:4000/assets/img/elm/norm_l2.png" />
+</figure>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">Yd</span><span class="p">,</span> <span class="n">nh</span><span class="p">):</span>
+        <span class="s">'''
+        X_t: Input pattern
+        Y_d: Label
+        n_h: Hidden nodes
+        '''</span>
+        <span class="c1"># # Fixing random state for reproducibility
+</span>        <span class="c1"># np.random.seed(7)
+</span>        <span class="n">ne</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">Xt</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">Yd</span><span class="p">)</span>    
+        <span class="n">Xt</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">Xt</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">ones</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">))),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># divide by 10 in order to improve convergence
+</span>        <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">rand</span><span class="p">(</span><span class="n">ne</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">nh</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span>
+        <span class="n">Hi</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Xt</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">Hi</span><span class="p">)</span>        
+        <span class="n">Bi</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">H</span><span class="p">),</span> <span class="n">Yd</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">W</span><span class="p">,</span> <span class="n">Bi</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+        <span class="s">'''
+        ELM test unit for prediction
+        X_t: test input pattern
+        W_i: Weights vector
+        B_i: Bias vector
+        '''</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">Xt</span><span class="p">)</span>
+        <span class="n">Xt</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">Xt</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">ones</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="p">))),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">Hi</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Xt</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">Hi</span><span class="p">)</span> 
+        <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">Y</span> 
+</code></pre></div></div>
+<p>So first, in order to check the algorithm that we just have implemented, a simple but useful hard test is the exclusive disjunction function or XOR, which is defined as a not linearly separable function. Consider two patterns:</p>
 
 <figure>
   <img src="http://localhost:4000/assets/img/elm/XOR_eq.png" />
 </figure>
-
+<p>Shown in figure bellow is the spatial representation of XOR function for two classes that  cannot be separated in a linear manner.</p>
+<figure>
+  <img src="http://localhost:4000/assets/img/elm/xor_plot.png" />
+</figure>
+<p>In order to overcome the limitations of linear separabilityit is possible to map this problem in a SLFN with 4 nodes in the hidden layer.</p>
 <figure>
   <img src="http://localhost:4000/assets/img/elm/xor_elm_architecture_git.png" />
 </figure>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#pattern dataset
+</span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">]])</span>
+<span class="c1">#Fixing random state for reproducibility
+</span><span class="n">ELM</span> <span class="o">=</span> <span class="n">ELM</span><span class="p">()</span>
+<span class="c1"># training step using 4 nodes in the hidden layer
+</span><span class="n">W_i</span><span class="p">,</span> <span class="n">B_i</span> <span class="o">=</span> <span class="n">ELM</span><span class="p">.</span><span class="n">train</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="c1"># label prediction using the calculated weigths
+</span><span class="n">ELM</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">W_i</span><span class="p">,</span><span class="n">B_i</span><span class="p">)</span>
+</code></pre></div></div>
 
   </div><a class="u-url" href="/2020/04/25/extreme-learning-machine.html" hidden></a>
 </article>
