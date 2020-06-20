@@ -15,7 +15,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-04-25T17:47:58-03:00" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","headline":"Introduction to extreme learning machine","dateModified":"2020-04-25T17:47:58-03:00","datePublished":"2020-04-25T17:47:58-03:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/04/25/extreme-learning-machine.html"},"url":"http://localhost:4000/2020/04/25/extreme-learning-machine.html","description":"An introduction to Extreme learning machine.","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","url":"http://localhost:4000/2020/04/25/extreme-learning-machine.html","headline":"Introduction to extreme learning machine","dateModified":"2020-04-25T17:47:58-03:00","datePublished":"2020-04-25T17:47:58-03:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/04/25/extreme-learning-machine.html"},"description":"An introduction to Extreme learning machine.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Miguel Rueda" /></head>
 <body><header class="site-header" role="banner">
@@ -56,36 +56,51 @@
 
 <p>Compared to SLFN-ELM, traditional supervised learning methods have shown that learning speed of feedforward networks are slower than required. Most of this traditional methods are either gradient based (e.g. backpropagation algortihm) or evolutionary algorithms. The former, could be approached as unrestricted nonlinear optimization problem; where the bottleneck lies on the existence of several local minima, with the underlying assumption of multi-modal nature of the loss function; the latter are rather global optimization problems inspired by biological evolution.</p>
 
-<p>ELM’s learning algorithm randomly chooses and fixes the weights between input and hidden layer, and then analytically determines the weights of the output layer via Least mean squares (LMS) estimators. The fact that the ELM has few parameters to be tuned lead to excel generalization capabilities. The supervised training is occurs as follows:</p>
+<p>ELM’s learning algorithm randomly chooses and fixes the weights between input and hidden layer, and then analytically determines the weights of the output layer via Least Mean Square (LMS) estimators. The fact that the ELM has few parameters to be tuned lead to excel generalization capabilities. The supervised training is occurs as follows:</p>
 
-<p>The SLFN-ELM could be interpreted as linear system</p>
-<figure>
-  <img src="http://localhost:4000/assets/img/elm/linear_elm.png" />
-</figure>
-
+<p>Supposed that we have a arbitrary set form by the pair {X,y}, so the SLFN_ELM could be interpreted as linear system given by:</p>
 <figure>
   <img src="http://localhost:4000/assets/img/elm/huang_notation.png" />
 </figure>
 
+<p>where H is, usually called, the hidden layer output matrix, w weight vector connecting the n-th hidden node with the m-th input nodes; β is the weight vector connecting the n-th hidden layer nodes with the output layer nodes. For simplicity assume that H = H(x,w) so we have that:</p>
 <figure>
   <img src="http://localhost:4000/assets/img/elm/H_matrix_elm.png" />
 </figure>
 
+<p>For simplicity assume that H = H(x,w), that can be written as:</p>
+<figure>
+  <img src="http://localhost:4000/assets/img/elm/linear_elm.png" />
+</figure>
+
+<p>The input weight vector is randomly assigned and fixed.  So the H matrix could be calculated by the inner product of input vector x and w given an activation function:</p>
+
 <figure>
   <img src="http://localhost:4000/assets/img/elm/activation_function.png" />
 </figure>
+<p>Since this algorithm doesn’t relies on the back propagation approach, non differential functions could be used. Then β is adjusted according to the LMS estimate which basically is the L2-norm minimization:</p>
+<figure>
+  <img src="http://localhost:4000/assets/img/elm/norm_l2.png" />
+</figure>
+<p>This is a well know linear system optimization problem whose solution It is given by least-squares estimation:</p>
 
 <figure>
   <img src="http://localhost:4000/assets/img/elm/beta_solution.png" />
 </figure>
-<p>Min L2-norm output layer weight:</p>
+
+<p>The + operator is known as the pseudo inverse or the Moore-Penrose generalized inverse of the matrix. Huang’s original algorithm is shown in the image below.</p>
+
 <figure>
-  <img src="http://localhost:4000/assets/img/elm/norm_l2.png" />
+  <img src="http://localhost:4000/assets/img/elm/ELM_algo.png" />
 </figure>
 
+<p>Lets code this algorith in order to make a fair test:</p>
+
+<h4 id="activation-function">Activation function</h4>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
 </code></pre></div></div>
+<h4 id="training-function">Training function</h4>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">Yd</span><span class="p">,</span> <span class="n">nh</span><span class="p">):</span>
         <span class="s">'''
@@ -106,6 +121,7 @@
         
         <span class="k">return</span> <span class="n">W</span><span class="p">,</span> <span class="n">Bi</span>
 </code></pre></div></div>
+<h4 id="predict-function">Predict function</h4>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
     <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
@@ -133,11 +149,12 @@
 <figure>
   <img src="http://localhost:4000/assets/img/elm/xor_plot.png" />
 </figure>
-<p>In order to overcome the limitations of linear separabilityit is possible to map this problem in a SLFN with 4 nodes in the hidden layer.</p>
+<p>In order to overcome the limitations of linear separability it is possible to map this problem in a SLFN with 4 nodes in the hidden layer.</p>
 <figure>
   <img src="http://localhost:4000/assets/img/elm/xor_elm_architecture_git.png" />
 </figure>
 
+<p>Creating an the ELM object that was created before, we have:</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#pattern dataset
 </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">]])</span>
@@ -148,6 +165,13 @@
 <span class="c1"># label prediction using the calculated weigths
 </span><span class="n">ELM</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">W_i</span><span class="p">,</span><span class="n">B_i</span><span class="p">)</span>
 </code></pre></div></div>
+<p>And the predicted value for each of the input patterns is printed out</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([[0.],
+       [1.],
+       [1.],
+       [0.]])
+</code></pre></div></div>
+<p>Check out the ELM’s repo for more info.</p>
 
   </div><a class="u-url" href="/2020/04/25/extreme-learning-machine.html" hidden></a>
 </article>

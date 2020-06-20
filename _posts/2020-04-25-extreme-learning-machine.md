@@ -20,38 +20,53 @@ The input layer is the a set of  m independent and identically distributed (i.i.
 
 Compared to SLFN-ELM, traditional supervised learning methods have shown that learning speed of feedforward networks are slower than required. Most of this traditional methods are either gradient based (e.g. backpropagation algortihm) or evolutionary algorithms. The former, could be approached as unrestricted nonlinear optimization problem; where the bottleneck lies on the existence of several local minima, with the underlying assumption of multi-modal nature of the loss function; the latter are rather global optimization problems inspired by biological evolution.
 
-ELM’s learning algorithm randomly chooses and fixes the weights between input and hidden layer, and then analytically determines the weights of the output layer via Least mean squares (LMS) estimators. The fact that the ELM has few parameters to be tuned lead to excel generalization capabilities. The supervised training is occurs as follows:
+ELM’s learning algorithm randomly chooses and fixes the weights between input and hidden layer, and then analytically determines the weights of the output layer via Least Mean Square (LMS) estimators. The fact that the ELM has few parameters to be tuned lead to excel generalization capabilities. The supervised training is occurs as follows:
 
-The SLFN-ELM could be interpreted as linear system 
-<figure>
-  <img src="{{site.url}}/assets/img/elm/linear_elm.png"/>
-</figure>
-
+Supposed that we have a arbitrary set form by the pair {X,y}, so the SLFN_ELM could be interpreted as linear system given by: 
 <figure>
   <img src="{{site.url}}/assets/img/elm/huang_notation.png"/>
 </figure>
 
+where H is, usually called, the hidden layer output matrix, w weight vector connecting the n-th hidden node with the m-th input nodes; β is the weight vector connecting the n-th hidden layer nodes with the output layer nodes. For simplicity assume that H = H(x,w) so we have that: 
 <figure>
   <img src="{{site.url}}/assets/img/elm/H_matrix_elm.png"/>
 </figure>
 
+For simplicity assume that H = H(x,w), that can be written as: 
+<figure>
+  <img src="{{site.url}}/assets/img/elm/linear_elm.png"/>
+</figure>
+
+The input weight vector is randomly assigned and fixed.  So the H matrix could be calculated by the inner product of input vector x and w given an activation function: 
+
 <figure>
   <img src="{{site.url}}/assets/img/elm/activation_function.png"/>
 </figure>
+Since this algorithm doesn't relies on the back propagation approach, non differential functions could be used. Then β is adjusted according to the LMS estimate which basically is the L2-norm minimization: 
+<figure>
+  <img src="{{site.url}}/assets/img/elm/norm_l2.png"/>
+</figure>
+This is a well know linear system optimization problem whose solution It is given by least-squares estimation:
 
 <figure>
   <img src="{{site.url}}/assets/img/elm/beta_solution.png"/>
 </figure>
-Min L2-norm output layer weight:
+
+The + operator is known as the pseudo inverse or the Moore-Penrose generalized inverse of the matrix. Huang’s original algorithm is shown in the image below.
+
 <figure>
-  <img src="{{site.url}}/assets/img/elm/norm_l2.png"/>
+  <img src="{{site.url}}/assets/img/elm/ELM_algo.png"/>
 </figure>
 
 
+Lets code this algorith in order to make a fair test:
+
+#### Activation function
 ```python
 def sigmoid(self, x):
         return 1/(1 + np.exp(-x))
 ```
+#### Training function
 
 ```python
   def train(self, Xt, Yd, nh):
@@ -73,6 +88,7 @@ def sigmoid(self, x):
         
         return W, Bi
 ```
+#### Predict function
 
 ```python
 
@@ -101,12 +117,12 @@ Shown in figure bellow is the spatial representation of XOR function for two cla
 <figure>
   <img src="{{site.url}}/assets/img/elm/xor_plot.png"/>
 </figure>
-In order to overcome the limitations of linear separabilityit is possible to map this problem in a SLFN with 4 nodes in the hidden layer.
+In order to overcome the limitations of linear separability it is possible to map this problem in a SLFN with 4 nodes in the hidden layer.
 <figure>
   <img src="{{site.url}}/assets/img/elm/xor_elm_architecture_git.png"/>
 </figure>
 
-
+Creating an the ELM object that was created before, we have:
 ```python
 #pattern dataset
 X = np.array([[0,0],[0,1],[1,0],[1,1]])
@@ -118,3 +134,11 @@ W_i, B_i = ELM.train(X,y,4)
 # label prediction using the calculated weigths
 ELM.predict(X,W_i,B_i)
 ```
+And the predicted value for each of the input patterns is printed out
+```
+array([[0.],
+       [1.],
+       [1.],
+       [0.]])
+```
+Check out the ELM's repo for more info.
