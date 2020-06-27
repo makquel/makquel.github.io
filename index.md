@@ -2,7 +2,7 @@ Hello and welcome to my personal blog. Here I discuss about some computer vision
 <!-- All pages on the blog, including this one, use [Markdown](https://guides.github.com/features/mastering-markdown/). You can include images: -->
 
 <!-- https://www.gimp.org/tutorials/CircleImage/ -->
-![Image of fast.ai logo](images/profile_pic.png)
+![Image of fast.ai logo](images/profile_pic_alt.png)
 
 <!-- ## This is a title
 
