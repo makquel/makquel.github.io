@@ -11,6 +11,10 @@ keywords: ""
 
 <!-- https://jekyllrb.com/tutorials/using-jekyll-with-bundler/ -->
 
+<figure>
+  <img src="{{site.url}}/assets/img/lsmt/post_intro.png"/>
+</figure>
+
 ## Intro 
 <figure>
   <img src="{{site.url}}/assets/img/lsmt/pluviomentros_sub_rio_grande.png"/>
