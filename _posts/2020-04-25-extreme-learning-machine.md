@@ -141,4 +141,4 @@ array([[0.],
        [1.],
        [0.]])
 ```
-Check out the ELM's repo for more info.
+Check out the [ELM](https://github.com/makquel/extreme-learning-machine) repo for more info.
