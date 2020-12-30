@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Probabilistic neural networks in a nutshell"
+title:  "Processing medical images for deep learning applications"
 date:   2020-12-25 07:45:00 -0300
 # categories: jekyll update
 comments: true
